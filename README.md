@@ -1,4 +1,4 @@
 # svelte-use-validate
 
 
-npm install --save-dev voscausa/svelte-use-validate
+npm install -D @voscausa/svelte-use-validate
