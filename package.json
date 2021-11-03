@@ -1,0 +1,22 @@
+
+{
+  "author": "voscausa",
+  "description": "A Svelte Action to validate inputs",
+  "files": [
+    "dist/**/*"
+  ],
+  "keywords": [
+    "svelte",
+    "actions",
+    "form",
+    "inputs",
+    "validate"
+  ],
+  "license": "ISC",
+  "module": "./dist/index.js",
+  "name": "@voscausa/svelte-use-validate",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0"
+}
