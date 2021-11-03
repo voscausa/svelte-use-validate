@@ -7,7 +7,7 @@ const alertStyle = {
   'z-index': 10,
 };
 
-function alert(node, obj) {  // text option: noWrap 
+const alert = function(node, obj) {  // text option: noWrap 
   let [text, noWrap] = (Array.isArray(obj)) ? obj : [obj, false];
   const alert = document.createElement('div');
   alert.textContent = text;

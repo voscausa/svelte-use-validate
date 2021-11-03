@@ -9,7 +9,7 @@ const notValidDay = ({ day, month, year }) => {
   return day !== date.getDate();
 }
 
-function getValidators() { // validObj not used yet
+const getValidators = function() { // validObj not used yet
   // use validating addValidator() to add dynamic validators
 
   const alerts = {};
