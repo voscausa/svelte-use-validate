@@ -7,7 +7,7 @@ const alertStyle = {
   'z-index': 10,
 };
 
-export function alert(node, obj) {  // text option: noWrap 
+function alert(node, obj) {  // text option: noWrap 
   let [text, noWrap] = (Array.isArray(obj)) ? obj : [obj, false];
   const alert = document.createElement('div');
   alert.textContent = text;
@@ -38,3 +38,4 @@ export function alert(node, obj) {  // text option: noWrap
   };
 };
 
+module.exports = alert;

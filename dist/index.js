@@ -1,8 +1,8 @@
-import { getValidators } from './validators.js';
+const getValidators = require('./validators');
 
 const isObj = obj => typeof obj === "object" && !Array.isArray(obj);
 
-export function validate(rulesConfig, callback = null) {
+function validate(rulesConfig, callback = null) {
   // Validator for use:field={obj} and adds function OK() and values 
 
   const validObj = {
@@ -81,3 +81,5 @@ export function validate(rulesConfig, callback = null) {
   };
 
 };
+
+module.exports = validate;

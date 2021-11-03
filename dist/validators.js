@@ -1,5 +1,5 @@
-import { validIBAN } from './validIban.js';
-import { alert } from './validAlert.js';
+const validIBAN = require('./validIban');
+const alert = require('./validAlert');
 
 const intRex = new RegExp("[,\.]", "g");
 
@@ -9,7 +9,7 @@ const notValidDay = ({ day, month, year }) => {
   return day !== date.getDate();
 }
 
-export function getValidators() { // validObj not used yet
+function getValidators() { // validObj not used yet
   // use validating addValidator() to add dynamic validators
 
   const alerts = {};
@@ -116,3 +116,5 @@ export function getValidators() { // validObj not used yet
 
   }, alerts];
 };
+
+module.exports = getValidators;
