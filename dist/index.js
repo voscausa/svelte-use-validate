@@ -1,4 +1,4 @@
-const getValidators = require('./validators');
+import { getValidators } from './validators.js';
 
 const isObj = obj => typeof obj === "object" && !Array.isArray(obj);
 
