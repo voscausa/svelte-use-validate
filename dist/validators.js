@@ -4,7 +4,7 @@ import { alert } from './validAlert.js';
 const intRex = new RegExp("[,\.]", "g");
 
 // convert to date and back to check if the day result matches the input
-const notValidDay = ({day, month, year}) => {
+const notValidDay = ({ day, month, year }) => {
   const date = new Date(year, month - 1, day);
   return day !== date.getDate();
 }
@@ -52,9 +52,9 @@ export function getValidators() { // validObj not used yet
     dayOk: function ({ msg = "not a valid day" }) {
       // ctx (this): this.value, this.node, this.controls [array]
       // month control value to check if we have an existing date like feb 29 
-      const { value: day, controls: [month] } = this;
+      const { value: day, controls: [year, month] } = this;
       const notValid = (month && !isNaN(month))
-        ? notValidDay({year: 2021, month: parseInt(month), day: parseInt(day)})
+        ? notValidDay({ year: parseInt(year), month: parseInt(month), day: parseInt(day) })
         : false
       return setNotValid(this, notValid, msg);
     },
