@@ -108,9 +108,9 @@ export function getValidators() { // validObj not used yet
       return setNotValid(this, !valid, msg);
     },
 
-    // set default value of an optional form field
-    get: function ({ notValid = false, msg = "" }) {
-      return setNotValid(this, notValid, msg);
+    // get always ok, so clear marked inputs and messages
+    get: function () {
+      return setNotValid(this, false, "");
     }
 
   }, alerts];
