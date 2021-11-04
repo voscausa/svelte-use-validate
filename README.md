@@ -41,7 +41,7 @@ import { validate } from "@voscausa/svelte-use-validate";
 const notValidMarkers = { contra: false, section: false, grossValue: false };
 
 const { field, OK, addValidator, fieldValues, runRuleChain } = validate(
-  rulesConfig,
+  { rulesConfig },
   (id, notValid, value) => {
     // callback to update bindings or signal notValid components
     if (id in notValidMarkers) notValidMarkers[id] = notValid;
@@ -54,11 +54,11 @@ const { field, OK, addValidator, fieldValues, runRuleChain } = validate(
 Validator functions have two types of arguments:
 * configured rule arguments like min, max, len, msg and so on
 * the field context (this)
-  * id: field id, default node.id (a unique id for an html element)
+  * id: field id, default: ```node.name``` (a unique id for an html element)
   * node: the html element
   * value: the field value
   * controls: array of values to (cross) control the behaviour of the validator
-  * mark: field has to be marked invalid (default true)
+  * mark: field has to be marked invalid (default: ```true```)
 
 A validator returns notValid (true or false). True breaks the rule chain.  
 
@@ -66,7 +66,7 @@ A validator returns notValid (true or false). True breaks the rule chain.
 ```js
 use:field={value} or use:field={obj}
 // where the value / obj argument will be decomposed as show below:
-let { value, id = node.id, mark = true, controls = [] } = obj;    
+let { value, id = node.name, mark = true, controls = [] } = obj;    
 ```
 
 ### <b>Dynamic rule chaines and cross field validation</b>
