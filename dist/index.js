@@ -2,8 +2,10 @@ import { getValidators } from './validators.js';
 
 const isObj = obj => typeof obj === "object" && !Array.isArray(obj);
 
-export function validate (rulesConfig, callback = null) {
-  // Validator for use:field={obj} and adds function OK() and values 
+// Validator for use:field={obj} and adds function OK() and values 
+export function validate (config, callback = null) {
+
+  const {rulesConfig , nodeKey = "name"} = config;
 
   const validObj = {
     runRuleChain: {},   // runRuleChain {[id]: closure} to rerun validation or update chain
@@ -19,7 +21,7 @@ export function validate (rulesConfig, callback = null) {
       // value = object (and not an array object) or value or values array
       // examples: {value: value, mark: false, controls: [control values] } or value
       // optional control values to control the validator behaviour
-      let { value, id = node.id, mark = true, controls = [] } = isObj(obj) ? obj : { value: obj };
+      let { value, id = node[nodeKey], mark = true, controls = [] } = isObj(obj) ? obj : { value: obj };
 
       let ruleChain = rulesConfig[id]; // enclose ruleChain
 
