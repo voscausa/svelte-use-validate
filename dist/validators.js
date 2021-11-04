@@ -109,8 +109,7 @@ export function getValidators() { // validObj not used yet
     },
 
     // set default value of an optional form field
-    set: function ({ value = "", notValid = false, msg = `${notValid ? `${value} was set invalid` : ""}` }) {
-      this.value = value;
+    get: function ({ notValid = false, msg = "" }) {
       return setNotValid(this, notValid, msg);
     }
 

@@ -33,8 +33,6 @@ export function validate (config, callback = null) {
         // run the rulechain array: {validator: { options}} or chain: [validator obj, ..] or "validator"
         for (const rule of Array.isArray(ruleChain) ? ruleChain : [ruleChain]) {
           const [validator, options] = (typeof rule === "object") ? Object.entries(rule)[0] : [rule, {}];
-          // get: only get the value
-          if (validator === 'get') break;
 
           // validator ctx (this context): {id, node, mark, value, [rest]}
           const ctx = { id, node, mark, value };
