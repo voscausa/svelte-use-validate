@@ -1,11 +1,13 @@
 # svelte-use-validate
 
 ### Features
-* rules and rule chaining
-* tooltip like messages
+* html inputs and svelte component validation
+* keystroke reactive and optional reactive updates
+* validation rules and rule chaining
+* lazy validation (on first use) and OK (validate all)
+* tooltip like messages and invalid field markers
 * dynamic rulechains (update rules and optional rules)
-* add custom validators
-* svelte component validation
+* add custom validators and cross field validators
 * validator controls to control validator behaviour
 
 ### Installation
