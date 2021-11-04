@@ -44,6 +44,7 @@ export function validate (config, callback = null) {
           notValid = validators[validator].call(ctx, options);
           // break the chain if notValid was returned
           if (notValid) break;
+          value = ctx.value;
         };
 
         // ruleChain finished, set field results
