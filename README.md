@@ -24,7 +24,7 @@ const rulesConfig = {
   month: ["required", { range: { min: 1, max: 12 } }],
   grossValue: ["required", "cents"],
   section: ["required", "sectionContra"], // optional contra
-  contra: "set", // set default: "" if section has no contra
+  contra: "get", // get default: "" if section has no contra
   note: "get",
   account_number: ["required", "ibanNum"], // alt rule with ibanRuleChains(iban)
   iban: "ibanType", // alt rule with ibanRuleChains(iban)
@@ -92,7 +92,7 @@ addValidator("sectionContra", function () {
     // hasContra control => require a contra account input
     this.controls[0]
       ? ["required", { func: { fn: validContraSection, msg: "contra section missing" } }]
-      : "set" // no contra account => contra account = ""
+      : "get" // no contra account => contra account = ""
   );
   // this section validator is always OK, so return false
   return false;
@@ -130,4 +130,25 @@ addValidator("sectionContra", function () {
     <div class="ml-0-5">{year}</div>
   </div>
 </td>
+```
+
+### <b>Valid date (day, month, year) day validator with controls</b>
+
+```js
+// convert to date and back to check if the day result matches the input
+const notValidDay = ({ day, month, year }) => {
+  const date = new Date(year, month - 1, day);
+  return day !== date.getDate();
+}
+
+// form a date and check if the result contains a valid day
+dayOk: function ({ msg = "not a valid day" }) {
+  // ctx (this): this.value, this.node, this.controls [array]
+  // month control value to check if we have an existing date like feb 29 
+  const { value: day, controls: [year, month] } = this;
+  const notValid = (month && !isNaN(month))
+    ? notValidDay({ year: parseInt(year), month: parseInt(month), day: parseInt(day) })
+    : false
+  return setNotValid(this, notValid, msg);
+},
 ```
