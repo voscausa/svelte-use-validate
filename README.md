@@ -35,6 +35,8 @@ const rulesConfig = {
 ### <b>Initialize validation instance</b>
 
 ```js
+import { validate } from "@voscausa/svelte-use-validate";
+
 // not valid markers for components
 const notValidMarkers = { contra: false, section: false, grossValue: false };
 
