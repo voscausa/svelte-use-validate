@@ -1,6 +1,6 @@
 # svelte-use-validate
 
-### Features
+### <b>Features</b>
 * html inputs and svelte component validation
 * keystroke reactive and optional reactive updates
 * validation rules and rule chaining
@@ -10,10 +10,12 @@
 * add custom validators and cross field validators
 * validator controls to control validator behaviour
 
-### Installation
+### <b>Installation</b>
+```
 npm install -D @voscausa/svelte-use-validate
+```
 
-### Config example
+### <b>Config example</b>
 
 ```js
 // rulesConfig = { node.id: rule or [rulechain ...], ...}
@@ -30,7 +32,7 @@ const rulesConfig = {
 };
 ```
 
-### Initialize validation instance
+### <b>Initialize validation instance</b>
 
 ```js
 // not valid markers for components
@@ -45,7 +47,27 @@ const { field, OK, addValidator, fieldValues, runRuleChain } = validate(
 );
 ```
 
-### Dynamic rule chaines
+### <b>Validator funtions</b>
+
+Validator functions have two types of arguments:
+* configured rule arguments like min, max, len, msg and so on
+* the field context (this)
+  * id: field id, default node.id (a unique id for an html element)
+  * node: the html element
+  * value: the field value
+  * controls: array of values to (cross) control the behaviour of the validator
+  * mark: field has to be marked invalid (default true)
+
+A validator returns notValid (true or false). True breaks the rule chain.  
+
+### <b>Svelte use action field function arguments and defaults</b>
+```js
+use:field={value} or use:field={obj}
+// where the value / obj argument will be decomposed as show below:
+let { value, id = node.id, mark = true, controls = [] } = obj;    
+```
+
+### <b>Dynamic rule chaines and cross field validation</b>
 
 ```js
 // alt rulechain selection to validate an account_number
@@ -75,7 +97,7 @@ addValidator("sectionContra", function () {
 });
 ```
 
-### Valid date (day, month, year) validation
+### <b>Valid date (day, month, year) cross field validation control</b>
 
 ```html
 <td>Date</td>
