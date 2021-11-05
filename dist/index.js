@@ -1,11 +1,12 @@
+/*jshint esversion: 9 */
 import { getValidators } from './validators.js';
 
 const isObj = obj => typeof obj === "object" && !Array.isArray(obj);
 
 // Validator for use:field={obj} and adds function OK() and values 
-export function validate (config, callback = null) {
+export function validate(config, callback = null) {
 
-  const {rulesConfig , nodeKey = "name"} = config;
+  const { rulesConfig, nodeKey = "name" } = config;
 
   const validObj = {
     runRuleChain: {},   // runRuleChain {[id]: closure} to rerun validation or update chain
@@ -38,12 +39,12 @@ export function validate (config, callback = null) {
           const ctx = { id, node, mark, value };
           // we allow an array of controls
           ctx.controls = Array.isArray(controls) ? controls : [controls];
-          
+
           notValid = validators[validator].call(ctx, options);
           // break the chain if notValid was returned
           if (notValid) break;
           value = ctx.value;
-        };
+        }
 
         // ruleChain finished, set field results
         validObj.fieldValues[id] = value;
@@ -56,7 +57,7 @@ export function validate (config, callback = null) {
         // value update and optional controls update
         update(obj) {
           // value = object (and not an array object) or a value
-          ({value, controls = []} = isObj(obj) ? obj : { value: obj})
+          ({ value, controls =[] } = isObj(obj) ? obj : { value: obj });
           validObj.runRuleChain[id]();
         },
 
@@ -81,4 +82,4 @@ export function validate (config, callback = null) {
     },
   };
 
-};
+}

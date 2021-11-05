@@ -1,3 +1,4 @@
+/*jshint esversion: 9, -W014*/
 import { validIBAN } from './validIban.js';
 import { alert } from './validAlert.js';
 
@@ -7,7 +8,7 @@ const intRex = new RegExp("[,\.]", "g");
 const notValidDay = ({ day, month, year }) => {
   const date = new Date(year, month - 1, day);
   return day !== date.getDate();
-}
+};
 
 export function getValidators() { // validObj not used yet
   // use validating addValidator() to add dynamic validators
@@ -21,7 +22,7 @@ export function getValidators() { // validObj not used yet
       'outline': notValid ? '0' : 'initial'
     });
     return notValid;
-  };
+  }
 
   // use mark = false for sub component validaton via a callback
   function setNotValid(ctx, notValid, msg = "warning ?") {
@@ -29,9 +30,7 @@ export function getValidators() { // validObj not used yet
     if (ctx.id in alerts) alerts[ctx.id].update(notValid ? msg : "");
     else alerts[ctx.id] = alert(ctx.node, [notValid ? msg : "", true]);
 
-    return (ctx.mark)
-      ? markError(ctx, notValid) // default   
-      : notValid;
+    return (ctx.mark) ? markError(ctx, notValid) : notValid;
     // we can test for mark = func (alt error marker);
   }
 
@@ -43,7 +42,7 @@ export function getValidators() { // validObj not used yet
     cents: function ({ trimZero = true, msg = "not a valid amount" }) {
       const { value = '' } = this;
       this.value = value.replace(intRex, '');
-      const notValid = isNaN(parseInt(this.value))
+      const notValid = isNaN(parseInt(this.value));
       if (!notValid && trimZero) this.value = `${parseInt(this.value)}`;
       return setNotValid(this, notValid, msg);
     },
@@ -55,7 +54,7 @@ export function getValidators() { // validObj not used yet
       const { value: day, controls: [year, month] } = this;
       const notValid = (month && !isNaN(month))
         ? notValidDay({ year: parseInt(year), month: parseInt(month), day: parseInt(day) })
-        : false
+        : false;
       return setNotValid(this, notValid, msg);
     },
 
@@ -78,9 +77,7 @@ export function getValidators() { // validObj not used yet
 
     // numeric string value within range (>= min, <= max)
     range: function ({ min = 0, max = 0, trimZero = true, msg = "out of range" }) {
-      const valid = !isNaN(this.value)
-        && parseInt(this.value) >= min
-        && parseInt(this.value) <= max;
+      const valid = !isNaN(this.value) && parseInt(this.value) >= min && parseInt(this.value) <= max;
       if (valid && trimZero) this.value = `${parseInt(this.value)}`;
       return setNotValid(this, !valid, msg);
     },
@@ -97,7 +94,7 @@ export function getValidators() { // validObj not used yet
 
     // regex test, default test for numeric digits
     rex: function ({ pattern = '^\d+$', flags = 'iu', msg = "value failed rex test" }) {
-      const regex = new RegExp(pattern, flags)
+      const regex = new RegExp(pattern, flags);
       const valid = regex.test(this.value);
       return setNotValid(this, !valid, msg);
     },
@@ -114,4 +111,4 @@ export function getValidators() { // validObj not used yet
     }
 
   }, alerts];
-};
+}

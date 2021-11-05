@@ -1,11 +1,12 @@
+/*jshint esversion: 9 */
 function mod97(digits_string) {
   let checksum = digits_string.slice(0, 2), fragment;
   for (let offset = 2; offset < digits_string.length; offset += 7) {
     fragment = String(checksum) + digits_string.substring(offset, offset + 7);
     checksum = parseInt(fragment, 10) % 97;
-  };
+  }
   return checksum === 1;
-};
+}
 
 export function validIBAN(input) {
   let CODE_LENGTHS = {
@@ -21,11 +22,11 @@ export function validIBAN(input) {
     code = iban.match(/^([A-Z]{2})(\d{2})([A-Z\d]+)$/), digits;
   if (!code || iban.length !== CODE_LENGTHS[code[1]]) {
     return false;
-  };
+  }
   // @ts-ignore
   digits = (code[3] + code[1] + code[2]).replace(/[A-Z]/g, function (letter) {
     return letter.charCodeAt(0) - 55;
   });
   // final check
   return mod97(digits);
-};
+}

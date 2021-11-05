@@ -1,3 +1,4 @@
+/*jshint esversion: 9 */
 const alertStyle = {
   position: 'absolute',
   color: 'red',
@@ -19,7 +20,7 @@ export function alert(node, obj) {  // text option: noWrap
     const { top, left } = node.getBoundingClientRect();
     alert.style.top = `${top + 24 + window.scrollY}px`;
     alert.style.left = `${left}px`;
-  };
+  }
 
   document.body.appendChild(alert);
   position();
@@ -29,11 +30,11 @@ export function alert(node, obj) {  // text option: noWrap
       if (txt !== text) {
         text = txt;
         alert.textContent = txt;
-      };
+      }
     },
 
     destroy() {
       alert.remove();
     }
   };
-};
+}
