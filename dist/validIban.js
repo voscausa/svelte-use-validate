@@ -1,4 +1,3 @@
-/*jshint esversion: 9 */
 function mod97(digits_string) {
   let checksum = digits_string.slice(0, 2), fragment;
   for (let offset = 2; offset < digits_string.length; offset += 7) {
@@ -18,7 +17,7 @@ export function validIBAN(input) {
     MT: 31, MU: 30, NL: 18, NO: 15, PK: 24, PL: 28, PS: 29, PT: 25, QA: 29,
     RO: 24, RS: 22, SA: 24, SE: 24, SI: 19, SK: 24, SM: 27, TN: 24, TR: 26
   };
-  let iban = String(input).toUpperCase().replace(/[^A-Z0-9]/g, ''),
+  let iban = String(input).toUpperCase().replace(/[^A-Z0-9]/g, ""),
     code = iban.match(/^([A-Z]{2})(\d{2})([A-Z\d]+)$/), digits;
   if (!code || iban.length !== CODE_LENGTHS[code[1]]) {
     return false;

@@ -1,19 +1,18 @@
-/*jshint esversion: 9 */
 const alertStyle = {
-  position: 'absolute',
-  color: 'red',
-  padding: '.4em .1em',
-  fontSize: '.8rem',
-  pointerEvents: 'none',
-  'z-index': 10,
+  position: "absolute",
+  color: "red",
+  padding: ".4em .1em",
+  fontSize: ".8rem",
+  pointerEvents: "none",
+  "z-index": 10,
 };
 
 export function alert(node, obj) {  // text option: noWrap 
   let [text, noWrap] = (Array.isArray(obj)) ? obj : [obj, false];
-  const alert = document.createElement('div');
+  const alert = document.createElement("div");
   alert.textContent = text;
 
-  Object.assign(alert.style, alertStyle, noWrap ? { 'white-space': 'nowrap' } : {});
+  Object.assign(alert.style, alertStyle, noWrap ? { "white-space": "nowrap" } : {});
 
   function position() {
     // position text 1.5em below top left corner

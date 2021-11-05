@@ -1,8 +1,7 @@
-/*jshint esversion: 9, -W014*/
-import { validIBAN } from './validIban.js';
-import { alert } from './validAlert.js';
+import { validIBAN } from "./validIban.js";
+import { alert } from "./validAlert.js";
 
-const intRex = new RegExp("[,\.]", "g");
+const intRex = new RegExp("[,\\.]", "g");
 
 // convert to date and back to check if the day result matches the input
 const notValidDay = ({ day, month, year }) => {
@@ -18,8 +17,8 @@ export function getValidators() { // validObj not used yet
   // default error marker 
   function markError(ctx, notValid) {
     Object.assign(ctx.node.style, {
-      'border-color': notValid ? 'red' : 'initial',
-      'outline': notValid ? '0' : 'initial'
+      "border-color": notValid ? "red" : "initial",
+      "outline": notValid ? "0" : "initial"
     });
     return notValid;
   }
@@ -40,8 +39,8 @@ export function getValidators() { // validObj not used yet
 
     // signed numeric string / string isNot a Number 
     cents: function ({ trimZero = true, msg = "not a valid amount" }) {
-      const { value = '' } = this;
-      this.value = value.replace(intRex, '');
+      const { value = "" } = this;
+      this.value = value.replace(intRex, "");
       const notValid = isNaN(parseInt(this.value));
       if (!notValid && trimZero) this.value = `${parseInt(this.value)}`;
       return setNotValid(this, notValid, msg);
@@ -59,18 +58,18 @@ export function getValidators() { // validObj not used yet
     },
 
     // run validation function
-    func: function ({ fn = _ => { }, msg = "function validation failed" }) {
+    func: function ({ fn = () => { }, msg = "function validation failed" }) {
       const notValid = fn(this.value);
       return setNotValid(this, notValid, msg);
     },
 
-    // string length. between: combine two len's
-    len: function ({ operator = '==', len = 0, msg = "current length invalid" }) {
+    // string length. between: combine two len"s
+    len: function ({ operator = "==", len = 0, msg = "current length invalid" }) {
       const valid = {
-        '>=': () => this.value.length >= len,
-        '<=': () => this.value.length <= len,
-        '==': () => this.value.length === len,
-        '!=': () => this.value.length !== len
+        ">=": () => this.value.length >= len,
+        "<=": () => this.value.length <= len,
+        "==": () => this.value.length === len,
+        "!=": () => this.value.length !== len
       }[operator]();
       return setNotValid(this, !valid, msg);
     },
@@ -86,14 +85,14 @@ export function getValidators() { // validObj not used yet
     required: function ({ msg = "required" }) {
       let notValid = [null, undefined].includes(this.value);
       if (!notValid) {
-        this.value = ('' + this.value).trim();
+        this.value = ("" + this.value).trim();
         notValid = (this.value.length <= 0);
       }
       return setNotValid(this, notValid, msg);
     },
 
     // regex test, default test for numeric digits
-    rex: function ({ pattern = '^\d+$', flags = 'iu', msg = "value failed rex test" }) {
+    rex: function ({ pattern = "(d)*", flags = "iu", msg = "value failed rex test" }) {
       const regex = new RegExp(pattern, flags);
       const valid = regex.test(this.value);
       return setNotValid(this, !valid, msg);

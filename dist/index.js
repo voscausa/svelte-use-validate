@@ -1,5 +1,4 @@
-/*jshint esversion: 9 */
-import { getValidators } from './validators.js';
+import { getValidators } from "./validators.js";
 
 const isObj = obj => typeof obj === "object" && !Array.isArray(obj);
 
@@ -11,7 +10,7 @@ export function validate(config, callback = null) {
   const validObj = {
     runRuleChain: {},   // runRuleChain {[id]: closure} to rerun validation or update chain
     fieldValues: {}     // validated form values: {[id]: value}
-  };
+  }
 
   const [validators, alerts] = getValidators();
 
