@@ -5,7 +5,7 @@
 * keystroke reactive and optional reactive updates
 * validation rules and rule chaining
 * lazy validation (on first use) and OK (validate all)
-* tooltip like messages and invalid field markers
+* tooltip like messages and invalid field border markers
 * dynamic rulechains (update rules and optional rules)
 * add custom validators and cross field validators
 * validator controls to control validator behaviour
@@ -41,13 +41,26 @@ import { validate } from "@voscausa/svelte-use-validate";
 const notValidMarkers = { contra: false, section: false, grossValue: false };
 
 const { field, OK, addValidator, fieldValues, runRuleChain } = validate(
-  { rulesConfig },
+  { rulesConfig, lazy: true, markDefault: 3 , alertBelow: 0, setNotValid},
   (id, notValid, value) => {
     // callback to update bindings or signal notValid components
     if (id in notValidMarkers) notValidMarkers[id] = notValid;
   }
 );
 ```
+Validate instance config options:
+* rulesConfig : rulesConfig object
+* lazy : validate on first use (default: ```true```)
+* OK() : check all rules (check all before submit)
+* addValidator : add a custom validator
+* markDefault : mark invalid inputs:
+  * 1 : input border only
+  * 2 : message below the input only
+  * 3 : both border and message
+  * 0 : do not mark invalid inputs
+* alertBelow : position (in pics) of the alert msg below the input (default: ```0```)
+* setNotValid : optional custom validator helper function to mark invalid fields    
+
 
 ### <b>Validator funtions</b>
 
@@ -58,7 +71,7 @@ Validator functions have two types of arguments:
   * node: the html element
   * value: the field value
   * controls: array of values to (cross) control the behaviour of the validator
-  * mark: field has to be marked invalid (default: ```true```)
+  * mark: field has to be marked with border and or text (default: ```3```)
 
 A validator returns notValid (true or false). True breaks the rule chain.  
 
@@ -66,7 +79,7 @@ A validator returns notValid (true or false). True breaks the rule chain.
 ```js
 use:field={value} or use:field={obj}
 // where the value / obj argument will be decomposed as show below:
-let { value, id = node.name, mark = true, controls = [] } = obj;    
+let { value, id = node.name, mark = 3, controls = [] } = obj;    
 ```
 
 ### <b>Dynamic rule chaines and cross field validation</b>
