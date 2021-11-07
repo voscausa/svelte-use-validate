@@ -1,5 +1,5 @@
 import { validIBAN } from "./validIban.js";
-import { alert } from "./validAlert.js";
+import { validAlert } from "./validAlert.js";
 
 const intRex = new RegExp("[,\\.]", "g");
 
@@ -9,10 +9,11 @@ const notValidDay = ({ day, month, year }) => {
   return day !== date.getDate();
 };
 
-export function getValidators() { // validObj not used yet
+export function getValidators(alertBelow) { // validObj not used yet
   // use validating addValidator() to add dynamic validators
 
   const alerts = {};
+  const alert = validAlert(alertBelow);
 
   // default error marker 
   function markError(ctx, notValid) {
@@ -23,13 +24,14 @@ export function getValidators() { // validObj not used yet
     return notValid;
   }
 
-  // use mark = false for sub component validaton via a callback
+  // mark 0: no-border and no-text, 1: red-border 2: text 3: red-border and text
   function setNotValid(ctx, notValid, msg = "warning ?") {
-    // show a message below the field node
-    if (ctx.id in alerts) alerts[ctx.id].update(notValid ? msg : "");
-    else alerts[ctx.id] = alert(ctx.node, [notValid ? msg : "", true]);
-
-    return (ctx.mark) ? markError(ctx, notValid) : notValid;
+    if (ctx.mark >= 2) {
+      // show a message below the field node
+      if (ctx.id in alerts) alerts[ctx.id].update(notValid ? msg : "");
+      else alerts[ctx.id] = alert(ctx.node, [notValid ? msg : "", true]);
+    }
+    return (ctx.mark % 2) ? markError(ctx, notValid) : notValid;
     // we can test for mark = func (alt error marker);
   }
 
@@ -109,5 +111,5 @@ export function getValidators() { // validObj not used yet
       return setNotValid(this, false, "");
     }
 
-  }, alerts];
+  }, alerts, setNotValid];
 }

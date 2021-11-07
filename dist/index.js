@@ -5,23 +5,26 @@ const isObj = obj => typeof obj === "object" && !Array.isArray(obj);
 // Validator for use:field={obj} and adds function OK() and values 
 export function validate(config, callback = null) {
 
-  const { rulesConfig, nodeKey = "name" } = config;
+  // mark 0: no-border and no-text, 1: red-border 2: text 3: red-border and text
+  const { rulesConfig, nodeKey = "name", lazy = "true", markDefault = 3, alertBelow = 0 } = config;
 
   const validObj = {
     runRuleChain: {},   // runRuleChain {[id]: closure} to rerun validation or update chain
     fieldValues: {}     // validated form values: {[id]: value}
   }
 
-  const [validators, alerts] = getValidators();
+  const [validators, alerts, setNotValid] = getValidators(alertBelow);
 
   return {
-    ...validObj,  // expose
+    ...validObj,  // expose runRuleChain and 
+    setNotValid,  // setNotValid if we need it to add a addValidator with: return setNotValid()
 
     field(node, obj) {
       // value = object (and not an array object) or value or values array
       // examples: {value: value, mark: false, controls: [control values] } or value
       // optional control values to control the validator behaviour
-      let { value, id = node[nodeKey], mark = true, controls = [] } = isObj(obj) ? obj : { value: obj };
+      let { value, id = node[nodeKey], mark = markDefault, controls = [] } =
+        isObj(obj) ? obj : { value: obj };
 
       let ruleChain = rulesConfig[id]; // enclose ruleChain
 
@@ -51,6 +54,8 @@ export function validate(config, callback = null) {
         if (callback) callback(id, notValid, value);
         return notValid;
       };
+
+      if (!lazy) validObj.runRuleChain[id]();
 
       return {
         // value update and optional controls update
