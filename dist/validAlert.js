@@ -39,5 +39,4 @@ export function validAlert(below = 0) {
       }
     };
   }
-
 }

@@ -9,11 +9,13 @@ export function validate(config, callback = null) {
   const { rulesConfig, nodeKey = "name", lazy = "true", markDefault = 3, alertBelow = 0 } = config;
 
   const validObj = {
-    runRuleChain: {},   // runRuleChain {[id]: closure} to rerun validation or update chain
-    fieldValues: {}     // validated form values: {[id]: value}
+    runRuleChain: {}, // runRuleChain {[id]: closure} to rerun validation or update chain
+    fieldValues: {},  // validated form values: {[id]: value}
   }
 
-  const [validators, alerts, setNotValid] = getValidators(alertBelow);
+  const alertNodes = {};  // alert msg nodes
+
+  const [validators, setNotValid] = getValidators(alertBelow, alertNodes);
 
   return {
     ...validObj,  // expose runRuleChain and 
@@ -66,10 +68,8 @@ export function validate(config, callback = null) {
         },
 
         destroy() {
-          // we do not need to validate this node anymore
-          if (id in alerts) {
-            alerts[id].destroy();
-          }
+          // we do not need to validate this message node anymore
+          if (id in alertNodes) alertNodes[id].destroy();
         }
       };
     },
