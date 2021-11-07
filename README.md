@@ -115,3 +115,5 @@ addValidator("sectionContra", function () {
 ### <b>Examples</b>
 
 An example Svelte SPA can be found here: [voscausa/use-validate-example](https://github.com/voscausa/use-validate-example)
+
+![use-validate example form](./assets/example%20form.png)

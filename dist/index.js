@@ -2,7 +2,7 @@ import { getValidators } from "./validators.js";
 
 const isObj = obj => typeof obj === "object" && !Array.isArray(obj);
 
-// Validator for use:field={obj} and adds function OK() and values 
+// Validator for use: field={obj} and adds function OK() and values 
 export function validate(config, callback = null) {
 
   // mark 0: no-border and no-text, 1: red-border 2: text 3: red-border and text
