@@ -1,4 +1,4 @@
-import { getValidators } from "./validators.mjs";
+import { getValidators } from "./validators";
 
 const isObj = obj => typeof obj === "object" && !Array.isArray(obj);
 

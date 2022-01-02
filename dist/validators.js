@@ -1,5 +1,5 @@
-import { validIBAN } from "./validIban.mjs";
-import { validAlert } from "./validAlert.mjs";
+import { validIBAN } from "./validIban";
+import { validAlert } from "./validAlert";
 
 const intRex = new RegExp("[,\\.]", "g");
 
