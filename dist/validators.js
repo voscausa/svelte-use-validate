@@ -50,7 +50,7 @@ export function getValidators(alertBelow, alertNodes) { // validObj not used yet
       },
 
       // form a date and check if the result contains a valid day
-      dayOk: function ({ msg = "not a valid day" }) {
+      dayOk: function ({ msg = "not a valid day!!!!" }) {
         // ctx (this): this.value, this.node, this.controls [array]
         // month control value to check if we have an existing date like feb 29 
         const { value: day, controls: [year, month] } = this;
