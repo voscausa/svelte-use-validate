@@ -1,4 +1,5 @@
-import { getValidators } from "./validators";
+import { getValidators, validDay } from "./validators";
+export { validDay };
 
 const isObj = obj => typeof obj === "object" && !Array.isArray(obj);
 
