@@ -52,9 +52,11 @@ export function validate(config, callback = null) {
         }
 
         // ruleChain finished, set field results
-        validObj.fieldValues[id] = value;
-        // callback to pass node validation result
-        if (callback) callback(id, notValid, value);
+        if (value !== validObj.fieldValues[id]) {
+          validObj.fieldValues[id] = value;
+          // callback to pass node validation result
+          if (callback) callback(id, notValid, value);
+        }
         return notValid;
       };
 
