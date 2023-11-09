@@ -29,6 +29,8 @@ export function validate(config, callback = null) {
       let { value, id = node[nodeKey], mark = markDefault, controls = [] } =
         isObj(obj) ? obj : { value: obj };
 
+      if (!id) console.log(`validate nodekey ${nodeKey} missing in node`, node);
+      
       let ruleChain = rulesConfig[id]; // enclose ruleChain
 
       // inner closure to validate node value: apply rule chain (array / chain of rules)
