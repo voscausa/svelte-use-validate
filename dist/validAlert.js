@@ -1,5 +1,5 @@
 const alertStyle = {
-  position: "absolute",
+  position: "fixed",
   color: "red",
   padding: "0 0",
   fontSize: ".8rem",
