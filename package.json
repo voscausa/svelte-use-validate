@@ -1,6 +1,6 @@
 {
   "name": "@voscausa/svelte-use-validate",
-  "version": "1.4.4",
+  "version": "1.4.6",
   "description": "A Svelte use:action to validate inputs",
   "main": "./dist/index.js",
   "exports": "./dist/index.js",

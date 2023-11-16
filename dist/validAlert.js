@@ -4,7 +4,7 @@ const alertStyle = {
   padding: "0 0",
   fontSize: ".8rem",
   pointerEvents: "none",
-  "z-index": 10,
+  "z-index": 10000,
 };
 
 export function validAlert(below = 0) {
