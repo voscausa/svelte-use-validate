@@ -4,7 +4,7 @@ export { validDay };
 const isObj = obj => typeof obj === "object" && !Array.isArray(obj);
 
 // Validator for use: field={obj} and adds function OK() and values 
-export function validate(config, callback = null) {
+export function validate(config, callback = null, store = null) {
 
   // mark 0: no-border and no-text, 1: red-border 2: text 3: red-border and text
   const { rulesConfig, nodeKey = "name", lazy = "true", markDefault = 3, alertBelow = 0 } = config;
@@ -30,7 +30,7 @@ export function validate(config, callback = null) {
         isObj(obj) ? obj : { value: obj };
 
       if (!id) console.log(`validate nodekey ${nodeKey} missing in node`, node, obj);
-      
+
       let ruleChain = rulesConfig[id]; // enclose ruleChain
 
       // inner closure to validate node value: apply rule chain (array / chain of rules)
@@ -56,6 +56,10 @@ export function validate(config, callback = null) {
         // ruleChain finished, set field results
         if (value !== validObj.fieldValues[id]) {
           validObj.fieldValues[id] = value;
+          if (store) store.update((o) => {
+            o[id] = value;
+            return o;
+          });
           // callback to pass node validation result
           if (callback) callback(id, notValid, value);
         }
